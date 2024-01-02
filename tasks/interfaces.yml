@@ -1,13 +1,4 @@
 ---
-- name: Configure interfaces dry-run
-  ansible.builtin.debug:
-    msg: "{{ lookup('ansible.builtin.template', 'interfaces.j2').split('\n') }}"
-  when:
-    - interfaces is defined
-  tags:
-    - never
-    - dry-run
-
 - name: Configure interfaces
   vyos.vyos.vyos_config:
     src: interfaces.j2
