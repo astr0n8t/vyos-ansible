@@ -6,7 +6,7 @@ delete system name-server
 set system name-server '{{ server }}'
 {% endfor %}
 {% if dns['search_domain'] is defined %}
-set system domain-search domain '{{ dns['search_domain'] }}'
+set system domain-search '{{ dns['search_domain'] }}'
 {% endif %}
 {% if dns['host_name'] is defined %}
 set system host-name '{{ dns['host_name'] }}'
