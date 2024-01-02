@@ -1,0 +1,90 @@
+---
+- name: Dry Run
+  ansible.builtin.include_tasks:
+    file: dry_run.yml
+    apply:
+      tags:
+        - dry-run 
+  tags:
+    - dry-run
+    - never
+- name: Configure users
+  ansible.builtin.include_tasks:
+    file: users.yml
+    apply:
+      tags:
+        - users
+  tags:
+    - users
+- name: Configure VRFs 
+  ansible.builtin.include_tasks:
+    file: vrf.yml
+    apply:
+      tags:
+        - vrf 
+  tags:
+    - vrf 
+- name: Configure Interfaces
+  ansible.builtin.include_tasks:
+    file: interfaces.yml
+    apply:
+      tags:
+        - interfaces
+  tags:
+    - interfaces
+- name: Configure services
+  ansible.builtin.include_tasks:
+    file: services.yml
+    apply:
+      tags:
+        - services
+  tags:
+    - services
+- name: Configure DHCP
+  ansible.builtin.include_tasks:
+    file: dhcp.yml
+    apply:
+      tags:
+        - dhcp
+  tags:
+    - dhcp
+- name: Configure Routing
+  ansible.builtin.include_tasks:
+    file: routing.yml
+    apply:
+      tags:
+        - routing
+  tags:
+    - routing
+- name: Configure Outbound NAT
+  ansible.builtin.include_tasks:
+    file: nat.yml
+    apply:
+      tags:
+        - nat
+  tags:
+    - nat
+- name: Configure Firewall
+  ansible.builtin.include_tasks:
+    file: firewall.yml
+    apply:
+      tags:
+        - firewall
+  tags:
+    - firewall
+- name: Configure Containers
+  ansible.builtin.include_tasks:
+    file: containers.yml
+    apply:
+      tags:
+        - containers
+  tags:
+    - containers
+- name: Save Configuration
+  ansible.builtin.include_tasks:
+    file: save.yml
+    apply:
+      tags:
+        - always
+  tags:
+    - always

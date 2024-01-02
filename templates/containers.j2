@@ -1,0 +1,52 @@
+delete container name
+{% for container in containers %}
+{% if container['name'] is defined %}
+{% if container['image'] is defined %}
+set container name {{ container['name'] }} image '{{ container['image'] }}'
+{% endif %}
+{% if container['volumes'] is defined %}
+{% for volume in container['volumes'] %}
+{% if volume['name'] is defined %}
+{% if volume['destination'] is defined %}
+set container name {{ container['name'] }} volume {{ volume['name'] }} destination '{{ volume['destination'] }}'
+{% endif %}
+{% if volume['source'] is defined %}
+set container name {{ container['name'] }} volume {{ volume['name'] }} source '{{ volume['source'] }}'
+{% endif %}
+{% if volume['mode'] is defined %}
+set container name {{ container['name'] }} volume {{ volume['name'] }} mode '{{ volume['mode'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if container['devices'] is defined %}
+{% for device in container['devices'] %}
+{% if device['name'] is defined %}
+{% if device['destination'] is defined %}
+set container name {{ container['name'] }} device {{ device['name'] }} destination '{{ device['destination'] }}'
+{% endif %}
+{% if device['source'] is defined %}
+set container name {{ container['name'] }} device {{ device['name'] }} source '{{ device['source'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if container['memory'] is defined %}
+set container name {{ container['name'] }} memory '{{ container['memory'] }}'
+{% endif %}
+{% if container['network'] is defined %}
+{% if container['ip'] is defined %}
+set container name {{ container['name'] }} network {{ container['network'] }} address '{{ container['ip'] }}'
+{% endif %}
+{% endif %}
+{% if container['environment'] is defined %}
+{% for variable in container['environment'] %}
+{% if variable['key'] is defined %}
+{% if variable['value'] is defined %}
+set container name {{ container['name'] }} environment {{ variable['key'] }} value '{{ variable['value'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endfor %}

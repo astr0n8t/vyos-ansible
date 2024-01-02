@@ -1,0 +1,7 @@
+---
+- name: Configure dhcp
+  vyos.vyos.vyos_config:
+    src: dhcp.j2
+    match: none
+  when:
+    - interfaces is defined

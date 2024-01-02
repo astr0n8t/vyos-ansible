@@ -1,0 +1,19 @@
+delete service ssh
+{% if ssh['listen_address'] is defined %}
+set service ssh listen-address '{{ ssh['listen_address'] }}'
+{% endif %}
+{% if ssh['disable_password_authentication'] is defined %}
+set service ssh disable-password-authentication
+{% endif %}
+{% for user in ssh['allowed_users'] %}
+set service ssh access-control allow user '{{ user }}' 
+{% endfor %}
+{% if ssh['dynamic_protection'] is defined %}
+set service ssh dynamic-protection
+{% endif %}
+{% if ssh['disable_host_validation'] is defined %}
+set service ssh disable-host-validation
+{% endif %}
+{% if ssh['vrf'] is defined %}
+set service ssh vrf '{{ ssh['vrf'] }}'
+{% endif %}

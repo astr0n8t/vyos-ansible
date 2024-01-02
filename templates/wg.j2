@@ -1,0 +1,38 @@
+{% if item['ipv4_addr'] is defined %}
+set interfaces wireguard {{ item['vyos_if'] }} address '{{ item['ipv4_addr'] }}'
+{% endif %}
+{% if item['ipv6_addr'] is defined %}
+set interfaces wireguard {{ item['vyos_if'] }} address '{{ item['ipv6_addr'] }}'
+{% endif %}
+{% if item['port'] is defined %}
+set interfaces wireguard {{ item['vyos_if'] }} port '{{ item['port'] }}'
+{% endif %}
+{% if item['private_key'] is defined %}
+set interfaces wireguard {{ item['vyos_if'] }} private-key '{{ item['private_key'] }}'
+{% endif %}
+{% if item['description'] is defined %}
+set interfaces wireguard {{ item['vyos_if'] }} description '{{ item['description'] }}'
+{% endif %}
+{% if item['peers'] is defined %}
+{% for peer in item['peers'] %}
+{% if peer['address'] is defined %}
+set interfaces wireguard {{ item['vyos_if'] }} peer {{ peer['name'] }} address '{{ peer['address'] }}'
+{% endif %}
+{% if peer['port'] is defined %}
+set interfaces wireguard {{ item['vyos_if'] }} peer {{ peer['name'] }} port '{{ peer['port'] }}'
+{% endif %}
+{% if peer['public_key'] is defined %}
+set interfaces wireguard {{ item['vyos_if'] }} peer {{ peer['name'] }} public-key '{{ peer['public_key'] }}'
+{% endif %}
+{% if peer['allowed_ips'] is defined %}
+{% for ip in peer['allowed_ips'] %}
+set interfaces wireguard {{ item['vyos_if'] }} peer {{ peer['name'] }} allowed-ips '{{ ip }}'
+{% endfor %}
+{% endif %}
+{% if peer['routable_ips'] is defined %}
+{% for ip in peer['routable_ips'] %}
+set protocols static route {{ ip }} interface {{ item['vyos_if'] }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}

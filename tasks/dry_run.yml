@@ -1,0 +1,119 @@
+---
+- name: Users dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'users.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: VRF dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'vrf.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure interfaces dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'interfaces.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure dns dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'dns.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure ntp dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'ntp.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure ssh dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'ssh.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure mdns dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'mdns.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure dhcp dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'dhcp.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure static routes dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'static_routes.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure bgp dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'bgp.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure nat dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'nat.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure firewall global options dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'firewall_options.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure firewall groups dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'firewall_groups.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure firewall zones dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'firewall_zones.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure firewall rules dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'firewall_rules.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure container network dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'container_networks.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
+- name: Configure containers dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'containers.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run

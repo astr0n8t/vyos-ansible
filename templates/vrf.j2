@@ -1,0 +1,47 @@
+delete vrf
+{% if vrfs is defined %}
+{% for vrf in vrfs %}
+{% if vrf['name'] is defined %}
+set vrf name '{{ vrf['name'] }}'
+{% if vrf['id'] is defined %}
+set vrf name {{ vrf['name'] }} table '{{ vrf['id'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if vrf_bind_to_all is defined %}
+set vrf bind-to-all
+{% endif %}
+{% for route in vrf_static_routes %}
+{% if route['subnet'] is defined %}
+{% if route['address'] is defined %}
+{% if route['dst_vrf'] is defined %}
+{% if route['src_vrf'] is defined %}
+set vrf name {{ route['src_vrf'] }} protocols static route {{ route['subnet'] }} next-hop '{{ route['address'] }}' vrf {{ route['dst_vrf'] }}
+{% else %}
+set protocols static route {{ route['subnet'] }} next-hop '{{ route['address'] }}' vrf {{ route['dst_vrf'] }}
+{% endif %}
+{% else %}
+set protocols static route {{ route['subnet'] }} next-hop '{{ route['address'] }}'
+{% endif %}
+{% endif %}
+{% if route['interface'] is defined %}
+{% if route['dst_vrf'] is defined %}
+{% if route['src_vrf'] is defined %}
+set vrf name {{ route['src_vrf'] }} protocols static route {{ route['subnet'] }} interface '{{ route['interface'] }}' vrf {{ route['dst_vrf'] }}
+{% else %}
+set protocols static route {{ route['subnet'] }} interface '{{ route['interface'] }}' vrf {{ route['dst_vrf'] }}
+{% endif %}
+{% else %}
+set protocols static route {{ route['subnet'] }} interface '{{ route['interface'] }}'
+{% endif %}
+{% endif %}
+{% if route['dhcp_interface'] is defined %}
+{% if route['src_vrf'] is defined %}
+set vrf name {{ route['src_vrf'] }} protocols static route {{ route['subnet'] }} dhcp-interface '{{ route['dhcp_interface'] }}'
+{% else %}
+set protocols static route {{ route['subnet'] }} dhcp-interface '{{ route['dhcp_interface'] }}'
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}

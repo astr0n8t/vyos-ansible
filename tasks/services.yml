@@ -1,0 +1,35 @@
+---
+- name: Define DNS settings
+  vyos.vyos.vyos_config:
+    src: dns.j2
+    match: none
+  when:
+    - dns is defined
+  tags:
+    - services
+
+- name: Define NTP settings
+  vyos.vyos.vyos_config:
+    src: ntp.j2
+    match: none
+  when:
+    - ntp is defined
+  tags:
+    - services
+
+- name: Define SSH settings
+  vyos.vyos.vyos_config:
+    src: ssh.j2
+    match: none
+  when:
+    - ssh is defined
+  tags:
+    - services
+
+- name: Configure mdns repeater
+  vyos.vyos.vyos_config:
+    src: mdns.j2
+    match: none
+  tags:
+    - services
+

@@ -1,0 +1,11 @@
+delete container network
+{% for network in container_networks %}
+{% if network['name'] is defined %}
+{% if network['prefix'] is defined %}
+set container network  {{ network['name'] }} prefix '{{ network['prefix'] }}'
+{% endif %}
+{% if network['desc'] is defined %}
+set container network  {{ network['name'] }} description '{{ network['desc'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}

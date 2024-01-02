@@ -1,0 +1,163 @@
+delete interfaces
+{% if interfaces is defined %}
+{% for interface in interfaces %}
+{% if interface['type'] == 'lag' %}
+{% if interface['name'] is defined %}
+{% if interface['ipv4_addr'] is defined %}
+set interfaces bonding {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
+{% endif %}
+{% if interface['ipv6_addr'] is defined %}
+set interfaces bonding {{ interface['name'] }} address '{{ interface['ipv6_addr'] }}'
+{% endif %}
+{% if interface['ipv4_addr_additional'] is defined %}
+{% for address in interface['ipv4_addr_additional'] %}
+set interfaces bonding {{ interface['name'] }} address '{{ address }}'
+{% endfor %}
+{% endif %}
+{% if interface['desc'] is defined %}
+set interfaces bonding {{ interface['name'] }} description '{{ interface['desc'] }}'
+{% endif %}
+{% if interface['mode'] is defined %}
+set interfaces bonding {{ interface['name'] }} mode '{{ interface['mode'] }}'
+{% endif %}
+{% if interface['hash_policy'] is defined %}
+set interfaces bonding {{ interface['name'] }} hash-policy '{{ interface['hash_policy'] }}'
+{% endif %}
+{% if interface['vrf'] is defined %}
+set interfaces bonding {{ interface['name'] }} vrf '{{ interface['vrf'] }}'
+{% endif %}
+{% endif %}
+{% elif interface['type'] == 'slave' %}
+{% if interface['name'] is defined %}
+{% if interface['slave'] is defined %}
+set interfaces bonding {{ interface['slave'] }} member interface '{{ interface['name'] }}'
+{% endif %}
+{% if interface['mac'] is defined %}
+set interfaces ethernet {{ interface['name'] }} hw-id '{{ interface['mac'] }}'
+{% endif %}
+{% endif %}
+{% elif interface['type'] == 'loopback' %}
+{% if interface['name'] is defined %}
+{% if interface['ipv4_addr'] is defined %}
+set interfaces loopback {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
+{% endif %}
+{% if interface['ipv6_addr'] is defined %}
+set interfaces loopback {{ interface['name'] }} address '{{ interface['ipv6_addr'] }}'
+{% endif %}
+{% if interface['desc'] is defined %}
+set interfaces loopback {{ interface['name'] }} description '{{ interface['desc'] }}'
+{% endif %}
+{% endif %}
+{% elif interface['type'] == 'ethernet' %}
+{% if interface['name'] is defined %}
+{% if interface['mac'] is defined %}
+set interfaces ethernet {{ interface['name'] }} hw-id '{{ interface['mac'] }}'
+{% endif %}
+{% if interface['ipv4_addr'] is defined %}
+set interfaces ethernet {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
+{% endif %}
+{% if interface['ipv6_addr'] is defined %}
+set interfaces ethernet {{ interface['name'] }} address '{{ interface['ipv6_addr'] }}'
+{% endif %}
+{% if interface['ipv4_addr_additional'] is defined %}
+{% for address in interface['ipv4_addr_additional'] %}
+set interfaces ethernet {{ interface['name'] }} address '{{ address }}'
+{% endfor %}
+{% endif %}
+{% if interface['desc'] is defined %}
+set interfaces ethernet {{ interface['name'] }} description '{{ interface['desc'] }}'
+{% endif %}
+{% if interface['vrf'] is defined %}
+set interfaces ethernet {{ interface['name'] }} vrf '{{ interface['vrf'] }}'
+{% endif %}
+{% endif %}
+{% elif interface['type'] == 'virtual-ethernet' %}
+{% if interface['name'] is defined %}
+{% if interface['ipv4_addr'] is defined %}
+set interfaces virtual-ethernet {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
+{% endif %}
+{% if interface['ipv6_addr'] is defined %}
+set interfaces virtual-ethernet {{ interface['name'] }} address '{{ interface['ipv6_addr'] }}'
+{% endif %}
+{% if interface['ipv4_addr_additional'] is defined %}
+{% for address in interface['ipv4_addr_additional'] %}
+set interfaces virtual-ethernet {{ interface['name'] }} address '{{ address }}'
+{% endfor %}
+{% endif %}
+{% if interface['desc'] is defined %}
+set interfaces virtual-ethernet {{ interface['name'] }} description '{{ interface['desc'] }}'
+{% endif %}
+{% if interface['peer_name'] is defined %}
+set interfaces virtual-ethernet {{ interface['name'] }} peer-name '{{ interface['peer_name'] }}'
+{% endif %}
+{% if interface['vrf'] is defined %}
+set interfaces virtual-ethernet {{ interface['name'] }} vrf '{{ interface['vrf'] }}'
+{% endif %}
+{% endif %}
+{% elif interface['type'] == 'vif' %}
+{% if interface['vif'] is defined %}
+{% if interface['parent'] is defined %}
+{% if interface['parent_type'] is defined %}
+set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif '{{ interface['vif'] }}'
+{% if interface['ipv4_addr'] is defined %}
+set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif {{ interface['vif'] }} address '{{ interface['ipv4_addr'] }}'
+{% endif %}
+{% if interface['ipv6_addr'] is defined %}
+set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif {{ interface['vif'] }} address '{{ interface['ipv6_addr'] }}'
+{% endif %}
+{% if interface['ipv4_addr_additional'] is defined %}
+{% for address in interface['ipv4_addr_additional'] %}
+set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif {{ interface['vif'] }} address '{{ address }}'
+{% endfor %}
+{% endif %}
+{% if interface['desc'] is defined %}
+set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif {{ interface['vif'] }} description '{{ interface['desc'] }}'
+{% endif %}
+{% if interface['vrf'] is defined %}
+set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif {{ interface['vif'] }} vrf '{{ interface['vrf'] }}'
+{% endif %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% elif interface['type'] == 'wg' %}
+{% if interface['name'] is defined %}
+{% if interface['ipv4_addr'] is defined %}
+set interfaces wireguard {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
+{% endif %}
+{% if interface['ipv6_addr'] is defined %}
+set interfaces wireguard {{ interface['name'] }} address '{{ interface['ipv6_addr'] }}'
+{% endif %}
+{% if interface['port'] is defined %}
+set interfaces wireguard {{ interface['name'] }} port '{{ interface['port'] }}'
+{% endif %}
+{% if interface['private_key'] is defined %}
+set interfaces wireguard {{ interface['name'] }} private-key '{{ interface['private_key'] }}'
+{% endif %}
+{% if interface['desc'] is defined %}
+set interfaces wireguard {{ interface['name'] }} description '{{ interface['desc'] }}'
+{% endif %}
+{% if interface['vrf'] is defined %}
+set interfaces wireguard {{ interface['name'] }} vrf '{{ interface['vrf'] }}'
+{% endif %}
+{% if interface['peers'] is defined %}
+{% for peer in interface['peers'] %}
+{% if peer['ipv4_addr'] is defined %}
+set interfaces wireguard {{ interface['name'] }} peer {{ peer['name'] }} address '{{ peer['ipv4_addr'] }}'
+{% endif %}
+{% if peer['port'] is defined %}
+set interfaces wireguard {{ interface['name'] }} peer {{ peer['name'] }} port '{{ peer['port'] }}'
+{% endif %}
+{% if peer['public_key'] is defined %}
+set interfaces wireguard {{ interface['name'] }} peer {{ peer['name'] }} public-key '{{ peer['public_key'] }}'
+{% endif %}
+{% if peer['allowed_ips'] is defined %}
+{% for ip in peer['allowed_ips'] %}
+set interfaces wireguard {{ interface['name'] }} peer {{ peer['name'] }} allowed-ips '{{ ip }}'
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,10 @@
+delete service ntp
+{% if ntp['listen_address'] is defined %}
+set service ntp listen-address '{{ ntp['listen_address'] }}'
+{% endif %}
+{% for server in ntp['servers'] %}
+set service ntp server '{{ server }}' 
+{% endfor %}
+{% for client in ntp['allowed_clients'] %}
+set service ntp allow-client address '{{ client }}'
+{% endfor %}

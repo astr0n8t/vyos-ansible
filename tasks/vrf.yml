@@ -1,0 +1,7 @@
+---
+- name: Configure vrfs
+  vyos.vyos.vyos_config:
+    src: vrf.j2
+    match: none
+  when:
+    - vrfs is defined

@@ -1,0 +1,32 @@
+---
+- name: Define Firewall Global Options
+  vyos.vyos.vyos_config:
+    src: firewall_options.j2
+    match: none
+  tags:
+    - firewall
+
+- name: Define Firewall Groups
+  vyos.vyos.vyos_config:
+    src: firewall_groups.j2
+    match: none
+  tags:
+    - firewall
+
+- name: Define Firewall Zones
+  vyos.vyos.vyos_config:
+    src: firewall_zones.j2
+    match: none
+  when:
+    - fw_zones is defined
+  tags:
+    - firewall
+
+- name: Define Firewall Rulesets
+  vyos.vyos.vyos_config:
+    src: firewall_rules.j2
+    match: none
+  when:
+    - fw_rules is defined
+  tags:
+    - firewall

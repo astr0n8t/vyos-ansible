@@ -1,0 +1,32 @@
+delete service dhcp-server
+{% for interface in interfaces %}
+{% if interface['dhcp'] is defined %}
+{% if interface['dhcp']['subnet'] is defined %}
+{% if interface['dhcp']['gw'] is defined %}
+set service dhcp-server shared-network-name {{ interface['desc'] }} subnet {{ interface['dhcp']['subnet'] }} default-router '{{ interface['dhcp']['gw'] }}'
+{% endif %}
+{% endif %}
+{% if interface['dhcp']['dns_servers'] is defined %}
+{% for server in interface['dhcp']['dns_servers'] %}
+set service dhcp-server shared-network-name {{ interface['desc'] }} subnet {{ interface['dhcp']['subnet'] }} name-server '{{ server }}'
+{% endfor %}
+{% endif %}
+{% if interface['dhcp']['domain_name'] is defined %}
+set service dhcp-server shared-network-name {{ interface['desc'] }} subnet {{ interface['dhcp']['subnet'] }} domain-name '{{ interface['dhcp']['domain_name'] }}'
+set service dhcp-server shared-network-name {{ interface['desc'] }} subnet {{ interface['dhcp']['subnet'] }} domain-search '{{ interface['dhcp']['domain_name'] }}'
+{% endif %}
+set service dhcp-server shared-network-name {{ interface['desc'] }} subnet {{ interface['dhcp']['subnet'] }} lease '86400'
+{% if interface['dhcp']['start'] is defined %}
+set service dhcp-server shared-network-name {{ interface['desc'] }} subnet {{ interface['dhcp']['subnet'] }} range 0 start '{{ interface['dhcp']['start'] }}'
+{% endif %}
+{% if interface['dhcp']['stop'] is defined %}
+set service dhcp-server shared-network-name {{ interface['desc'] }} subnet {{ interface['dhcp']['subnet'] }} range 0 stop '{{ interface['dhcp']['stop'] }}'
+{% if interface['dhcp']['static_mappings'] is defined %}
+{% for mapping in interface['dhcp']['static_mappings'] %}
+set service dhcp-server shared-network-name {{ interface.desc }} subnet {{ interface.dhcp.subnet }} static-mapping {{ mapping.name }} mac-address '{{ mapping.mac }}'
+set service dhcp-server shared-network-name {{ interface.desc }} subnet {{ interface.dhcp.subnet }} static-mapping {{ mapping.name }} ip-address '{{ mapping.ipv4 }}'
+{% endfor %}
+{% endif %}
+{% endif %}
+{% endif %}
+{% endfor %}

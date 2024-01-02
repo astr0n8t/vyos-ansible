@@ -1,0 +1,45 @@
+delete nat
+{% if destination_nat is defined %}
+{% for rule in destination_nat %}
+{% if rule['inbound_interface'] is defined %}
+set nat destination rule {{ loop.index }} inbound-interface name '{{ rule['inbound_interface'] }}'
+{% endif %}
+{% if rule['destination_address'] is defined %}
+set nat destination rule {{ loop.index }} destination address '{{ rule['destination_address'] }}'
+{% endif %}
+{% if rule['source_address'] is defined %}
+set nat destination rule {{ loop.index }} source address '{{ rule['source_address'] }}'
+{% endif %}
+{% if rule['destination_port'] is defined %}
+set nat destination rule {{ loop.index }} destination port '{{ rule['destination_port'] }}'
+{% endif %}
+{% if rule['protocol'] is defined %}
+set nat destination rule {{ loop.index }} protocol '{{ rule['protocol'] }}'
+{% endif %}
+{% if rule['translation_address'] is defined %}
+set nat destination rule {{ loop.index }} translation address '{{ rule['translation_address'] }}'
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if source_nat is defined %}
+{% for rule in source_nat %}
+{% if rule['outbound_interface'] is defined %}
+set nat source rule {{ loop.index }} outbound-interface name '{{ rule['outbound_interface'] }}'
+{% endif %}
+{% if rule['destination_address'] is defined %}
+set nat source rule {{ loop.index }} destination address '{{ rule['destination_address'] }}'
+{% endif %}
+{% if rule['source_address'] is defined %}
+set nat source rule {{ loop.index }} source address '{{ rule['source_address'] }}'
+{% endif %}
+{% if rule['source_port'] is defined %}
+set nat source rule {{ loop.index }} source port '{{ rule['source_port'] }}'
+{% endif %}
+{% if rule['protocol'] is defined %}
+set nat source rule {{ loop.index }} protocol '{{ rule['protocol'] }}'
+{% endif %}
+{% if rule['translation_address'] is defined %}
+set nat source rule {{ loop.index }} translation address '{{ rule['translation_address'] }}'
+{% endif %}
+{% endfor %}
+{% endif %}

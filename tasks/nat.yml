@@ -1,0 +1,5 @@
+---
+- name: Configure nat
+  vyos.vyos.vyos_config:
+    src: nat.j2
+    match: none

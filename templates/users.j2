@@ -1,0 +1,21 @@
+delete system login user
+{% for user in users %}
+{% if user['name'] is defined %}
+{% if user['full_name'] is defined %}
+set system login user {{ user['name'] }} full-name '{{ user['full_name'] }}'
+{% endif %}
+{% for public_key in user['public_keys'] %}
+{% if public_key['name'] is defined %}
+{% if public_key['key'] is defined %}
+set system login user {{ user['name'] }} authentication public-keys {{ public_key['name'] }} key '{{ public_key['key'] }}'
+{% endif %}
+{% if public_key['type'] is defined %}
+set system login user {{ user['name'] }} authentication public-keys {{ public_key['name'] }} type '{{ public_key['type'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% if user['pw_hash'] is defined %}
+set system login user {{ user['name'] }} authentication 'encrypted-password' '{{ user['pw_hash'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}

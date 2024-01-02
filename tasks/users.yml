@@ -1,0 +1,10 @@
+---
+- name: Define user accounts
+  vyos.vyos.vyos_config:
+    src: users.j2
+    match: none
+  when:
+    - users is defined
+  tags:
+    - users
+

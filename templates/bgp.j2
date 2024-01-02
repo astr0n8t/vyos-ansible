@@ -1,0 +1,19 @@
+delete protocols bgp
+{% for route in bgp %}
+{% if route['asn'] is defined %}
+set protocols bgp system-as '{{ route['asn'] }}'
+{% endif %}
+{% if route['id'] is defined %}
+set protocols bgp parameters router-id '{{ route['id'] }}'
+set protocols bgp address-family ipv4-unicast maximum-paths ebgp 32
+{% endif %}
+{% if route['neighbors'] is defined %}
+{% for neighbor in route['neighbors'] %}
+set protocols bgp neighbor '{{ neighbor['ipv4_address'] }}' remote-as '{{ neighbor['asn'] }}'
+set protocols bgp neighbor '{{ neighbor['ipv4_address'] }}' ebgp-multihop '2'
+set protocols bgp neighbor '{{ neighbor['ipv4_address'] }}' update-source '{{ route['id'] }}'
+set protocols bgp neighbor '{{ neighbor['ipv4_address'] }}' address-family ipv4-unicast
+set protocols bgp neighbor '{{ neighbor['ipv4_address'] }}' description '{{ neighbor['description'] }}'
+{% endfor %}
+{% endif %}
+{% endfor %}

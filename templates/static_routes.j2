@@ -1,0 +1,14 @@
+delete protocols static
+{% for route in static_routes %}
+{% if route['subnet'] is defined %}
+{% if route['address'] is defined %}
+set protocols static route {{ route['subnet'] }} next-hop '{{ route['address'] }}'
+{% endif %}
+{% if route['interface'] is defined %}
+set protocols static route {{ route['subnet'] }} interface '{{ route['interface'] }}'
+{% endif %}
+{% if route['dhcp_interface'] is defined %}
+set protocols static route {{ route['subnet'] }} dhcp-interface '{{ route['dhcp_interface'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
