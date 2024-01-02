@@ -1,4 +1,5 @@
 delete container name
+{% if containers is defined %}
 {% for container in containers %}
 {% if container['name'] is defined %}
 {% if container['image'] is defined %}
@@ -54,3 +55,4 @@ set container name {{ container['name'] }} environment {{ variable['key'] }} val
 {% endif %}
 {% endif %}
 {% endfor %}
+{% endif %}

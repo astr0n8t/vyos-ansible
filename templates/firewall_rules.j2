@@ -1,5 +1,6 @@
 delete firewall ipv4
 delete firewall ipv6
+{% if fw_rules is defined %}
 {% for ruleset in fw_rules %}
 {% if ruleset['ipv4'] is defined %}
 {% if ruleset['name'] is defined %}
@@ -156,3 +157,4 @@ set firewall ipv6 {{ name }} rule {{ loop.index }} protocol '{{ rule['protocol']
 {% endfor %}
 {% endif %}
 {% endfor %}
+{% endif %}

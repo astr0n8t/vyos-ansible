@@ -1,4 +1,5 @@
 delete protocols bgp
+{% if bgp is defined %}
 {% for route in bgp %}
 {% if route['asn'] is defined %}
 set protocols bgp system-as '{{ route['asn'] }}'
@@ -17,3 +18,4 @@ set protocols bgp neighbor '{{ neighbor['ipv4_address'] }}' description '{{ neig
 {% endfor %}
 {% endif %}
 {% endfor %}
+{% endif %}

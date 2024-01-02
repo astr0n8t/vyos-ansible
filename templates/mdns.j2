@@ -1,4 +1,6 @@
 delete service mdns
+{% if mdns is defined %}
 {% for interface in mdns['interfaces'] %}
 set service mdns repeater interface '{{ interface }}'
 {% endfor %}
+{% endif %}

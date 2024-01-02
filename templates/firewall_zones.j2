@@ -1,4 +1,5 @@
 delete firewall zone
+{% if fw_zones is defined %}
 {% for zone in fw_zones %}
 {% if zone['name'] is defined %}
 {% if zone['interfaces'] is defined %}
@@ -19,3 +20,4 @@ set firewall zone {{ zone['name'] }} description '{{ zone['desc'] }}'
 {% endif %}
 {% endif %}
 {% endfor %}
+{% endif %}

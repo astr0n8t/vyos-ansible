@@ -12,6 +12,7 @@ set vrf name {{ vrf['name'] }} table '{{ vrf['id'] }}'
 {% if vrf_bind_to_all is defined %}
 set vrf bind-to-all
 {% endif %}
+{% if vrf_static_routes is defined %}
 {% for route in vrf_static_routes %}
 {% if route['subnet'] is defined %}
 {% if route['address'] is defined %}
@@ -45,3 +46,4 @@ set protocols static route {{ route['subnet'] }} dhcp-interface '{{ route['dhcp_
 {% endif %}
 {% endif %}
 {% endfor %}
+{% endif %}
