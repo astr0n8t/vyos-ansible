@@ -35,8 +35,12 @@ set container name {{ container['name'] }} device {{ device['name'] }} source '{
 set container name {{ container['name'] }} memory '{{ container['memory'] }}'
 {% endif %}
 {% if container['network'] is defined %}
+{% if container['network'] == 'allow-host-networks' %}
+set container name {{ container['name'] }} 'allow-host-networks'
+{% else %}
 {% if container['ip'] is defined %}
 set container name {{ container['name'] }} network {{ container['network'] }} address '{{ container['ip'] }}'
+{% endif %}
 {% endif %}
 {% endif %}
 {% if container['environment'] is defined %}
