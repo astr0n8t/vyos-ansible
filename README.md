@@ -2,11 +2,11 @@
 
 An Ansible role to idempotently configure a VyOS 1.4 Appliance
 
-[!CAUTION]
-You can lock yourself out of your VyOS install with this role.  It will provision exactly what you define.  I recommend testing before using this on any production systems.
+> [!CAUTION]
+> You can lock yourself out of your VyOS install with this role.  It will provision exactly what you define.  I recommend testing before using this on any production systems.
 
-[!TIP]
-To see a good example of how I use this, please reference my custom [lab](https://github.com/lab-astr0rack-net/core): specifically [here](https://github.com/lab-astr0rack-net/core/blob/main/ansible/host_vars/vyos.yml)
+> [!TIP]
+> To see a good example of how I use this, please reference my custom [lab](https://github.com/lab-astr0rack-net/core): specifically [here](https://github.com/lab-astr0rack-net/core/blob/main/ansible/host_vars/vyos.yml)
 
 ## Motivations
 
