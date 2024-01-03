@@ -4,7 +4,7 @@
     file: dry_run.yml
     apply:
       tags:
-        - dry-run 
+        - dry-run
   tags:
     - dry-run
     - never
@@ -16,14 +16,14 @@
         - users
   tags:
     - users
-- name: Configure VRFs 
+- name: Configure VRFs
   ansible.builtin.include_tasks:
     file: vrf.yml
     apply:
       tags:
-        - vrf 
+        - vrf
   tags:
-    - vrf 
+    - vrf
 - name: Configure Interfaces
   ansible.builtin.include_tasks:
     file: interfaces.yml
