@@ -16,6 +16,10 @@ This role simply takes a jinja2 template and produces the relevant config sectio
 
 This role deletes the relevant config section before applying the configuration.  This means that everytime you run the role, it will overwrite your config, but it also means that when it does this the output will be a 1 to 1 mapping of what you define in your Ansible variables.  This is helpful because you know that the config you define via the variables is the config that will always be applied.
 
+## See Also
+
+If you need a VyOS image, see my other repository [here](https://github.com/astr0n8t/vyos-tailscale-gha/) which is a VyOS 1.4 Sagitta build with Tailscale and Netbird clients included along with a qcow2 image with cloud-init support for Proxmox.
+
 ## Contributing
 
 I have defined in this role what I need for my use case. If you find that you need more, feel free to add to it (just a jinja2 template of VyOS commands that create the relevant config section).  Feel free to create a PR, I'd love to expand this!
