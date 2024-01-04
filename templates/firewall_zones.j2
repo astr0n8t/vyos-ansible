@@ -17,6 +17,9 @@ set firewall zone {{ zone['name'] }} default-log
 {% if zone['default_action'] is defined %}
 set firewall zone {{ zone['name'] }} default-action '{{ zone['default_action'] }}'
 {% endif %}
+{% if zone['intra_filtering_action'] is defined %}
+set firewall zone {{ zone['name'] }} intra-zone-filtering action '{{ zone['intra_filtering_action'] }}'
+{% endif %}
 {% if zone['desc'] is defined %}
 set firewall zone {{ zone['name'] }} description '{{ zone['desc'] }}'
 {% endif %}

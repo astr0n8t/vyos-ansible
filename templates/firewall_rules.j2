@@ -4,6 +4,11 @@ delete firewall ipv6
 {% for ruleset in fw_rules %}
 {% if ruleset['ipv4'] is defined %}
 {% if ruleset['name'] is defined %}
+{% if ruleset['intra_zone_assignments'] is defined %}
+{% for assignment in ruleset['intra_zone_assignments'] %}
+set firewall zone {{ assignment }} intra-zone-filtering firewall name '{{ ruleset['name'] }}'
+{% endfor %}
+{% endif %}
 {% if ruleset['assignments'] is defined %}
 {% for assignment in ruleset['assignments'] %}
 {% if assignment['from'] is defined %}
@@ -81,6 +86,11 @@ set firewall ipv4 {{ name }} rule {{ loop.index }} protocol '{{ rule['protocol']
 {% endif %}
 {% if ruleset['ipv6'] is defined %}
 {% if ruleset['name'] is defined %}
+{% if ruleset['intra_zone_assignments'] is defined %}
+{% for assignment in ruleset['intra_zone_assignments'] %}
+set firewall zone {{ assignment }} intra-zone-filtering firewall ipv6-name '{{ ruleset['name'] }}-IPV6'
+{% endfor %}
+{% endif %}
 {% if ruleset['assignments'] is defined %}
 {% for assignment in ruleset['assignments'] %}
 {% if assignment['from'] is defined %}
