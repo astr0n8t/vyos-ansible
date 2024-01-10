@@ -53,10 +53,10 @@ set firewall ipv4 {{ name }} rule {{ loop.index }} source fqdn '{{ rule['source_
 set firewall ipv4 {{ name }} rule {{ loop.index }} destination fqdn '{{ rule['destination_fqdn'] }}'
 {% endif %}
 {% if rule['source_geoip'] is defined %}
-set firewall ipv4 {{ name }} rule {{ loop.index }} source geoip '{{ rule['source_geoip'] }}'
+set firewall ipv4 {{ name }} rule {{ loop.index }} source geoip country-code '{{ rule['source_geoip'] }}'
 {% endif %}
 {% if rule['destination_geoip'] is defined %}
-set firewall ipv4 {{ name }} rule {{ loop.index }} destination geopip '{{ rule['destination_geoip'] }}'
+set firewall ipv4 {{ name }} rule {{ loop.index }} destination geoip country-code '{{ rule['destination_geoip'] }}'
 {% endif %}
 {% if rule['source_mac'] is defined %}
 set firewall ipv4 {{ name }} rule {{ loop.index }} source mac-address '{{ rule['source_mac'] }}'
@@ -135,10 +135,10 @@ set firewall ipv6 {{ name }} rule {{ loop.index }} source fqdn '{{ rule['source_
 set firewall ipv6 {{ name }} rule {{ loop.index }} destination fqdn '{{ rule['destination_fqdn'] }}'
 {% endif %}
 {% if rule['source_geoip'] is defined %}
-set firewall ipv6 {{ name }} rule {{ loop.index }} source geoip '{{ rule['source_geoip'] }}'
+set firewall ipv6 {{ name }} rule {{ loop.index }} source geoip country-code '{{ rule['source_geoip'] }}'
 {% endif %}
 {% if rule['destination_geoip'] is defined %}
-set firewall ipv6 {{ name }} rule {{ loop.index }} destination geopip '{{ rule['destination_geoip'] }}'
+set firewall ipv6 {{ name }} rule {{ loop.index }} destination geopip country-code '{{ rule['destination_geoip'] }}'
 {% endif %}
 {% if rule['source_mac'] is defined %}
 set firewall ipv6 {{ name }} rule {{ loop.index }} source mac-address '{{ rule['source_mac'] }}'
