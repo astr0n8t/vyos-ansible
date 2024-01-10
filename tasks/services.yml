@@ -8,6 +8,15 @@
   tags:
     - services
 
+- name: Define DDNS settings
+  vyos.vyos.vyos_config:
+    src: ddns.j2
+    match: none
+  when:
+    - ddns is defined
+  tags:
+    - services
+
 - name: Define NTP settings
   vyos.vyos.vyos_config:
     src: ntp.j2

@@ -1,0 +1,31 @@
+delete service dns dynamic
+{% if ddns is defined %}
+{% for interface in ddns['interfaces'] %}
+{% if interface['name'] is defined %}
+{% if interface['service'] is defined %}
+set service dns dynamic name {{ interface['service'] }} address '{{ interface['name'] }}'
+{% if interface['hostname'] is defined %}
+set service dns dynamic name {{ interface['service'] }} host-name '{{ interface['hostname'] }}'
+{% endif %}
+{% if interface['username'] is defined %}
+set service dns dynamic name {{ interface['service'] }} username '{{ interface['username'] }}'
+{% endif %}
+{% if interface['password'] is defined %}
+set service dns dynamic name {{ interface['service'] }} password '{{ interface['password'] }}'
+{% endif %}
+{% if interface['protocol'] is defined %}
+set service dns dynamic name {{ interface['service'] }} protocol '{{ interface['protocol'] }}'
+{% endif %}
+{% if interface['server'] is defined %}
+set service dns dynamic name {{ interface['service'] }} server '{{ interface['server'] }}'
+{% endif %}
+{% if interface['zone'] is defined %}
+set service dns dynamic name {{ interface['service'] }} zone '{{ interface['zone'] }}'
+{% endif %}
+{% endif %}
+{% if interface['ip_version'] is defined %}
+set service dns dynamic name {{ interface['service'] }} ip-version '{{ interface['ip_version'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
