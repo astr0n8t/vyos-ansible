@@ -1,0 +1,19 @@
+delete system task-scheduler
+{% if crontab is defined %}
+{% for entry in crontab %}
+{% if entry['name'] is defined %}
+{% if entry['interval'] is defined %}
+set system task-scheduler task {{ entry['name'] }} interval '{{ entry['interval'] }}'
+{% endif %}
+{% if entry['crontab_spec'] is defined %}
+set system task-scheduler task {{ entry['name'] }} crontab-spec '{{ entry['crontab_spec'] }}'
+{% endif %}
+{% if entry['executable'] is defined %}
+set system task-scheduler task {{ entry['name'] }} executable path '{{ entry['executable'] }}'
+{% endif %}
+{% if entry['arguments'] is defined %}
+set system task-scheduler task {{ entry['name'] }} executable arguments '{{ entry['arguments'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}

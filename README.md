@@ -18,7 +18,7 @@ This role deletes the relevant config section before applying the configuration.
 
 ## See Also
 
-If you need a VyOS image, see my other repository [here](https://github.com/astr0n8t/vyos-tailscale-gha/) which is a VyOS 1.4 Sagitta build with Tailscale and Netbird clients included along with a qcow2 image with cloud-init support for Proxmox.
+If you need a VyOS image, see my other repository [here](https://github.com/astr0n8t/vyos-builds/) which is a VyOS 1.4 Sagitta build with Tailscale and Netbird clients included along with a qcow2 image with cloud-init support for Proxmox.
 
 ## Contributing
 

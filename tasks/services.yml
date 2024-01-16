@@ -41,3 +41,10 @@
     match: none
   tags:
     - services
+
+- name: Configure cron
+  vyos.vyos.vyos_config:
+    src: cron.j2
+    match: none
+  tags:
+    - services
