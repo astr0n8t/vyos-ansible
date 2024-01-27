@@ -64,14 +64,6 @@
         - nat
   tags:
     - nat
-- name: Configure Firewall
-  ansible.builtin.include_tasks:
-    file: firewall.yml
-    apply:
-      tags:
-        - firewall
-  tags:
-    - firewall
 - name: Configure Containers
   ansible.builtin.include_tasks:
     file: containers.yml
@@ -80,6 +72,14 @@
         - containers
   tags:
     - containers
+- name: Configure Firewall
+  ansible.builtin.include_tasks:
+    file: firewall.yml
+    apply:
+      tags:
+        - firewall
+  tags:
+    - firewall
 - name: Save Configuration
   ansible.builtin.include_tasks:
     file: save.yml
