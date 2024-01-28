@@ -35,6 +35,11 @@ set interfaces bonding {{ interface['slave'] }} member interface '{{ interface['
 {% if interface['mac'] is defined %}
 set interfaces ethernet {{ interface['name'] }} hw-id '{{ interface['mac'] }}'
 {% endif %}
+{% if interface['offloads'] is defined %}
+{% for offload in interface['offloads'] %}
+set interfaces ethernet {{ interface['name'] }} offload '{{ offload }}'
+{% endfor %}
+{% endif %}
 {% endif %}
 {% elif interface['type'] == 'loopback' %}
 {% if interface['name'] is defined %}
@@ -70,11 +75,6 @@ set interfaces ethernet {{ interface['name'] }} description '{{ interface['desc'
 {% if interface['vrf'] is defined %}
 set interfaces ethernet {{ interface['name'] }} vrf '{{ interface['vrf'] }}'
 {% endif %}
-{% if interface['offloads'] is defined %}
-{% for offload in interface['offloads'] %}
-set interfaces ethernet {{ interface['name'] }} offload '{{ offload }}'
-{% endfor %}
-{% endif %}
 {% endif %}
 {% elif interface['type'] == 'virtual-ethernet' %}
 {% if interface['name'] is defined %}
@@ -97,6 +97,11 @@ set interfaces virtual-ethernet {{ interface['name'] }} peer-name '{{ interface[
 {% endif %}
 {% if interface['vrf'] is defined %}
 set interfaces virtual-ethernet {{ interface['name'] }} vrf '{{ interface['vrf'] }}'
+{% endif %}
+{% if interface['offloads'] is defined %}
+{% for offload in interface['offloads'] %}
+set interfaces ethernet {{ interface['name'] }} offload '{{ offload }}'
+{% endfor %}
 {% endif %}
 {% endif %}
 {% elif interface['type'] == 'vif' %}
