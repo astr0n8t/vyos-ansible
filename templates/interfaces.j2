@@ -70,6 +70,11 @@ set interfaces ethernet {{ interface['name'] }} description '{{ interface['desc'
 {% if interface['vrf'] is defined %}
 set interfaces ethernet {{ interface['name'] }} vrf '{{ interface['vrf'] }}'
 {% endif %}
+{% if interface['offloads'] is defined %}
+{% for offload in interface['offloads'] %}
+set interfaces ethernet {{ interface['name'] }} offload '{{ offload }}'
+{% endfor %}
+{% endif %}
 {% endif %}
 {% elif interface['type'] == 'virtual-ethernet' %}
 {% if interface['name'] is defined %}
