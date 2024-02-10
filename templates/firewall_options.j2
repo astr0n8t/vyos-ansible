@@ -1,6 +1,6 @@
 delete firewall global-options
-{% if fw_global_options is defined %}
-{% for option in fw_global_options %}
+{% if firewall_global_options is defined %}
+{% for option in firewall_global_options %}
 {% if option['name'] is defined %}
 {% if option['setting'] is defined %}
 set firewall global-options {{ option['name'] }} '{{ option['setting'] }}'

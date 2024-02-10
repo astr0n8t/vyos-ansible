@@ -1,7 +1,7 @@
 delete firewall ipv4
 delete firewall ipv6
-{% if fw_rules is defined %}
-{% for ruleset in fw_rules %}
+{% if firewall_rules is defined %}
+{% for ruleset in firewall_rules %}
 {% if ruleset['ipv4'] is defined %}
 {% if ruleset['name'] is defined %}
 {% if ruleset['intra_zone_assignments'] is defined %}

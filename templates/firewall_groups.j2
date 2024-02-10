@@ -1,6 +1,6 @@
 delete firewall group
-{% if fw_address_groups is defined %}
-{% for address in fw_address_groups %}
+{% if firewall_address_groups is defined %}
+{% for address in firewall_address_groups %}
 {% if address['groups'] is defined %}
 {% for group in address['groups'] %}
 {% if address['ip'] is defined %}
@@ -13,8 +13,8 @@ set firewall group ipv6-address-group {{ group }} address {{ address['ipv6'] }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if fw_domain_groups is defined %}
-{% for domain in fw_domain_groups %}
+{% if firewall_domain_groups is defined %}
+{% for domain in firewall_domain_groups %}
 {% if domain['groups'] is defined %}
 {% for group in domain['groups'] %}
 set firewall group domain-group {{ group }} address {{ domain['name'] }}
@@ -22,8 +22,8 @@ set firewall group domain-group {{ group }} address {{ domain['name'] }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if fw_interface_groups is defined %}
-{% for interface in fw_interface_groups %}
+{% if firewall_interface_groups is defined %}
+{% for interface in firewall_interface_groups %}
 {% if interface['groups'] is defined %}
 {% for group in interface['groups'] %}
 set firewall group interface-group {{ group }} interface {{ interface['name'] }}
@@ -31,8 +31,8 @@ set firewall group interface-group {{ group }} interface {{ interface['name'] }}
 {% endif %}
 {% endfor %}
 {% endif %}
-{% if fw_network_groups is defined %}
-{% for network in fw_network_groups %}
+{% if firewall_network_groups is defined %}
+{% for network in firewall_network_groups %}
 {% if network['groups'] is defined %}
 {% for group in network['groups'] %}
 {% if network['ip'] is defined %}

@@ -1,6 +1,6 @@
 delete firewall zone
-{% if fw_zones is defined %}
-{% for zone in fw_zones %}
+{% if firewall_zones is defined %}
+{% for zone in firewall_zones %}
 {% if zone['name'] is defined %}
 {% if zone['interfaces'] is defined %}
 {% for interface in zone['interfaces'] %}

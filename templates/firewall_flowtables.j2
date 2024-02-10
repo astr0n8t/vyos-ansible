@@ -1,6 +1,6 @@
 delete firewall flowtable
-{% if fw_flowtables is defined %}
-{% for table in fw_flowtables %}
+{% if firewall_flowtables is defined %}
+{% for table in firewall_flowtables %}
 {% if table['name'] is defined %}
 {% if table['interfaces'] is defined %}
 {% for interface in table['interfaces'] %}
