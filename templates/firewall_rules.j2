@@ -28,6 +28,9 @@ set firewall zone {{ assignment['to'] }} from {{ assignment['from'] }} firewall 
 {% if rule['action'] is defined %}
 set firewall ipv4 {{ name }} rule {{ loop.index }} action '{{ rule['action'] }}'
 {% endif %}
+{% if rule['offload_target'] is defined %}
+set firewall ipv4 {{ name }} rule {{ loop.index }} offload-target '{{ rule['offload_target'] }}'
+{% endif %}
 {% if rule['state'] is defined %}
 set firewall ipv4 {{ name }} rule {{ loop.index }} state '{{ rule['state'] }}'
 {% endif %}
@@ -109,6 +112,9 @@ set firewall zone {{ assignment['to'] }} from {{ assignment['from'] }} firewall 
 {% for rule in ruleset['ipv6'] %}
 {% if rule['action'] is defined %}
 set firewall ipv6 {{ name }} rule {{ loop.index }} action '{{ rule['action'] }}'
+{% endif %}
+{% if rule['offload_target'] is defined %}
+set firewall ipv6 {{ name }} rule {{ loop.index }} offload-target '{{ rule['offload_target'] }}'
 {% endif %}
 {% if rule['state'] is defined %}
 set firewall ipv6 {{ name }} rule {{ loop.index }} state '{{ rule['state'] }}'

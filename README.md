@@ -16,6 +16,20 @@ This role simply takes a jinja2 template and produces the relevant config sectio
 
 This role deletes the relevant config section before applying the configuration.  This means that everytime you run the role, it will overwrite your config, but it also means that when it does this the output will be a 1 to 1 mapping of what you define in your Ansible variables.  This is helpful because you know that the config you define via the variables is the config that will always be applied.
 
+## Tricks
+
+### Dry Runs
+
+If you ever want to see how a config will look without actually applying it, simply run the role with the tags `never,dry-run`.
+
+If you want the output even cleaner, just pipe using the following one liner:
+
+```
+| grep '"' | grep -v '"msg":' | awk -F'"' '{print $$2}'
+```
+
+This will result with a print out of the exact set commands used to configure.
+
 ## See Also
 
 If you need a VyOS image, see my other repository [here](https://github.com/astr0n8t/vyos-builds/) which is a VyOS 1.4 Sagitta build with Tailscale and Netbird clients included along with a qcow2 image with cloud-init support for Proxmox.
