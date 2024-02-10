@@ -97,6 +97,13 @@
     - never
     - dry-run
 
+- name: Configure firewall flow tables dry-run
+  ansible.builtin.debug:
+    msg: "{{ lookup('ansible.builtin.template', 'firewall_flowtables.j2').split('\n') }}"
+  tags:
+    - never
+    - dry-run
+
 - name: Configure firewall rules dry-run
   ansible.builtin.debug:
     msg: "{{ lookup('ansible.builtin.template', 'firewall_rules.j2').split('\n') }}"

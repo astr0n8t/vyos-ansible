@@ -22,6 +22,15 @@
   tags:
     - firewall
 
+- name: Define Firewall Flowtables
+  vyos.vyos.vyos_config:
+    src: firewall_flowtables.j2
+    match: none
+  when:
+    - fw_flowtables is defined
+  tags:
+    - firewall
+
 - name: Define Firewall Rulesets
   vyos.vyos.vyos_config:
     src: firewall_rules.j2

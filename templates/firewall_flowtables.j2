@@ -1,0 +1,18 @@
+delete firewall flowtable
+{% if fw_flowtables is defined %}
+{% for table in fw_flowtables %}
+{% if table['name'] is defined %}
+{% if table['interfaces'] is defined %}
+{% for interface in table['interfaces'] %}
+set firewall flowtable {{ table['name'] }} interface '{{ interface }}'
+{% endfor %}
+{% endif %}
+{% if table['description'] is defined %}
+set firewall flowtable {{ table['name'] }} description '{{ table['description'] }}'
+{% endif %}
+{% if table['offload'] is defined %}
+set firewall flowtable {{ table['name'] }} offload '{{ table['offload'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
