@@ -109,7 +109,8 @@
     prompt: "Do you want to save the configuration? (yes/no)"
   register: confirm_save
   tags:
-    - always
+    - confirm-save
+    - never
 - name: Save Configuration
   ansible.builtin.include_tasks:
     file: save.yml
