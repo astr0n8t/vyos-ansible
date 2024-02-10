@@ -1,14 +1,7 @@
 ---
-- name: Define static routes
-  vyos.vyos.vyos_config:
-    src: static_routes.j2
-    match: none
-  when:
-    - static_routes is defined
-
-- name: Define BGP
-  vyos.vyos.vyos_config:
-    src: bgp.j2
-    match: none
-  when:
-    - bgp is defined
+- name: Template routing config
+  set_fact:
+    vyos_config: "{{ vyos_config + lookup('ansible.builtin.template', item).split('\n')[:-1] }}"
+  loop:
+    - 'static_routes.j2'
+    - 'bgp.j2'

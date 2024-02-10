@@ -1,30 +1,8 @@
 ---
-- name: Define container networks
-  vyos.vyos.vyos_config:
-    src: container_networks.j2
-    match: none
-  when:
-    - container_networks is defined
-  tags:
-    - container
+- name: Template container config
+  set_fact:
+    vyos_config: "{{ vyos_config + lookup('ansible.builtin.template', item).split('\n')[:-1] }}"
+  loop:
+    - 'container_networks.j2'
+    - 'containers.j2'
 
-- name: Define containers
-  vyos.vyos.vyos_config:
-    src: containers.j2
-    match: none
-  when:
-    - containers is defined
-  tags:
-    - container
-
-- name: Pull container images
-  vyos.vyos.vyos_command:
-    commands:
-      - "update container image {{ item.name }}"
-  loop: "{{ containers }}"
-
-- name: Start containers
-  vyos.vyos.vyos_command:
-    commands:
-      - "restart container {{ item.name }}"
-  loop: "{{ containers }}"

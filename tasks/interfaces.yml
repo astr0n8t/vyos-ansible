@@ -1,9 +1,6 @@
 ---
-- name: Configure interfaces
-  vyos.vyos.vyos_config:
-    src: interfaces.j2
-    match: none
-  when:
-    - interfaces is defined
-  tags:
-    - interfaces
+- name: Template interfaces config
+  set_fact:
+    vyos_config: "{{ vyos_config + lookup('ansible.builtin.template', item).split('\n')[:-1] }}"
+  loop:
+    - 'interfaces.j2'

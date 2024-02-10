@@ -1,41 +1,11 @@
 ---
-- name: Define Firewall Global Options
-  vyos.vyos.vyos_config:
-    src: firewall_options.j2
-    match: none
-  tags:
-    - firewall
+- name: Template firewall config
+  set_fact:
+    vyos_config: "{{ vyos_config + lookup('ansible.builtin.template', item).split('\n')[:-1] }}"
+  loop:
+    - 'firewall_options.j2'
+    - 'firewall_groups.j2'
+    - 'firewall_zones.j2'
+    - 'firewall_flowtables.j2'
+    - 'firewall_rules.j2'
 
-- name: Define Firewall Groups
-  vyos.vyos.vyos_config:
-    src: firewall_groups.j2
-    match: none
-  tags:
-    - firewall
-
-- name: Define Firewall Zones
-  vyos.vyos.vyos_config:
-    src: firewall_zones.j2
-    match: none
-  when:
-    - fw_zones is defined
-  tags:
-    - firewall
-
-- name: Define Firewall Flowtables
-  vyos.vyos.vyos_config:
-    src: firewall_flowtables.j2
-    match: none
-  when:
-    - fw_flowtables is defined
-  tags:
-    - firewall
-
-- name: Define Firewall Rulesets
-  vyos.vyos.vyos_config:
-    src: firewall_rules.j2
-    match: none
-  when:
-    - fw_rules is defined
-  tags:
-    - firewall

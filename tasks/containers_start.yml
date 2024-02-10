@@ -1,0 +1,12 @@
+---
+- name: Pull container images
+  vyos.vyos.vyos_command:
+    commands:
+      - "update container image {{ item.name }}"
+  loop: "{{ containers }}"
+
+- name: Start containers
+  vyos.vyos.vyos_command:
+    commands:
+      - "restart container {{ item.name }}"
+  loop: "{{ containers }}"

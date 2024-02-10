@@ -1,7 +1,6 @@
 ---
-- name: Configure vrfs
-  vyos.vyos.vyos_config:
-    src: vrf.j2
-    match: none
-  when:
-    - vrfs is defined
+- name: Template vrf config
+  set_fact:
+    vyos_config: "{{ vyos_config + lookup('ansible.builtin.template', item).split('\n')[:-1] }}"
+  loop:
+    - 'vrf.j2'

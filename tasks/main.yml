@@ -1,4 +1,12 @@
 ---
+- name: Init config
+  ansible.builtin.include_tasks:
+    file: init.yml
+    apply:
+      tags:
+        - always
+  tags:
+    - always
 - name: Dry Run
   ansible.builtin.include_tasks:
     file: dry_run.yml
@@ -80,6 +88,28 @@
         - firewall
   tags:
     - firewall
+- name: Apply Configuration
+  ansible.builtin.include_tasks:
+    file: apply.yml
+    apply:
+      tags:
+        - always
+  tags:
+    - always
+- name: Pull and Start Containers
+  ansible.builtin.include_tasks:
+    file: containers_start.yml
+    apply:
+      tags:
+        - containers
+  tags:
+    - containers
+- name: Ask config save
+  pause:
+    prompt: "Do you want to save the configuration? (yes/no)"
+  register: confirm_save
+  tags:
+    - always
 - name: Save Configuration
   ansible.builtin.include_tasks:
     file: save.yml
@@ -88,3 +118,4 @@
         - always
   tags:
     - always
+  when: confirm_save.user_input | bool

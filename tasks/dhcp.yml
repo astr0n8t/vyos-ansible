@@ -1,7 +1,7 @@
 ---
-- name: Configure dhcp
-  vyos.vyos.vyos_config:
-    src: dhcp.j2
-    match: none
-  when:
-    - interfaces is defined
+- name: Template dhcp config
+  set_fact:
+    vyos_config: "{{ vyos_config + lookup('ansible.builtin.template', item).split('\n')[:-1] }}"
+  loop:
+    - 'dhcp.j2'
+

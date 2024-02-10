@@ -1,0 +1,7 @@
+---
+- name: Apply config
+  vyos.vyos.vyos_config:
+    lines: "{{ vyos_config }}"
+    match: none
+  when:
+    -  vyos_config is defined

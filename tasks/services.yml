@@ -1,50 +1,12 @@
 ---
-- name: Define DNS settings
-  vyos.vyos.vyos_config:
-    src: dns.j2
-    match: none
-  when:
-    - dns is defined
-  tags:
-    - services
+- name: Template services config
+  set_fact:
+    vyos_config: "{{ vyos_config + lookup('ansible.builtin.template', item).split('\n')[:-1] }}"
+  loop:
+    - 'dns.j2'
+    - 'ddns.j2'
+    - 'ntp.j2'
+    - 'ssh.j2'
+    - 'mdns.j2'
+    - 'cron.j2'
 
-- name: Define DDNS settings
-  vyos.vyos.vyos_config:
-    src: ddns.j2
-    match: none
-  when:
-    - ddns is defined
-  tags:
-    - services
-
-- name: Define NTP settings
-  vyos.vyos.vyos_config:
-    src: ntp.j2
-    match: none
-  when:
-    - ntp is defined
-  tags:
-    - services
-
-- name: Define SSH settings
-  vyos.vyos.vyos_config:
-    src: ssh.j2
-    match: none
-  when:
-    - ssh is defined
-  tags:
-    - services
-
-- name: Configure mdns repeater
-  vyos.vyos.vyos_config:
-    src: mdns.j2
-    match: none
-  tags:
-    - services
-
-- name: Configure cron
-  vyos.vyos.vyos_config:
-    src: cron.j2
-    match: none
-  tags:
-    - services
