@@ -9,4 +9,5 @@
   vyos.vyos.vyos_command:
     commands:
       - "restart container {{ item.name }}"
+  when: item.start is undefined or item.start == true
   loop: "{{ containers }}"
