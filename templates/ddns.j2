@@ -3,7 +3,7 @@ delete service dns dynamic
 {% for interface in ddns['interfaces'] %}
 {% if interface['name'] is defined %}
 {% if interface['service'] is defined %}
-set service dns dynamic name {{ interface['service'] }} address '{{ interface['name'] }}'
+set service dns dynamic name {{ interface['service'] }} address interface '{{ interface['name'] }}'
 {% if interface['hostname'] is defined %}
 set service dns dynamic name {{ interface['service'] }} host-name '{{ interface['hostname'] }}'
 {% endif %}
