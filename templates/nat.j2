@@ -19,6 +19,9 @@ set nat destination rule {{ loop.index }} protocol '{{ rule['protocol'] }}'
 {% if rule['translation_address'] is defined %}
 set nat destination rule {{ loop.index }} translation address '{{ rule['translation_address'] }}'
 {% endif %}
+{% if rule['translation_port'] is defined %}
+set nat destination rule {{ loop.index }} translation port '{{ rule['translation_port'] }}'
+{% endif %}
 {% endfor %}
 {% endif %}
 {% if source_nat is defined %}
@@ -40,6 +43,9 @@ set nat source rule {{ loop.index }} protocol '{{ rule['protocol'] }}'
 {% endif %}
 {% if rule['translation_address'] is defined %}
 set nat source rule {{ loop.index }} translation address '{{ rule['translation_address'] }}'
+{% endif %}
+{% if rule['translation_port'] is defined %}
+set nat destination rule {{ loop.index }} translation port '{{ rule['translation_port'] }}'
 {% endif %}
 {% endfor %}
 {% endif %}
