@@ -5,6 +5,9 @@ delete container name
 {% if container['image'] is defined %}
 set container name {{ container['name'] }} image '{{ container['image'] }}'
 {% endif %}
+{% if container['command'] is defined %}
+set container name {{ container['name'] }} command '{{ container['command'] }}'
+{% endif %}
 {% if container['volumes'] is defined %}
 {% for volume in container['volumes'] %}
 {% if volume['name'] is defined %}
