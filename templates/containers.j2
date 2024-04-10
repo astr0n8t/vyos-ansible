@@ -8,6 +8,12 @@ set container name {{ container['name'] }} image '{{ container['image'] }}'
 {% if container['command'] is defined %}
 set container name {{ container['name'] }} command '{{ container['command'] }}'
 {% endif %}
+{% if container['uid'] is defined %}
+set container name {{ container['name'] }} uid '{{ container['uid'] }}'
+{% endif %}
+{% if container['gid'] is defined %}
+set container name {{ container['name'] }} gid '{{ container['gid'] }}'
+{% endif %}
 {% if container['volumes'] is defined %}
 {% for volume in container['volumes'] %}
 {% if volume['name'] is defined %}
