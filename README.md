@@ -1,6 +1,6 @@
 # vyos-ansible
 
-An Ansible role to idempotently configure a VyOS 1.4 Appliance
+An Ansible role to idempotently configure a VyOS Appliance
 
 > [!CAUTION]
 > You can lock yourself out of your VyOS install with this role.  It will provision exactly what you define.  I recommend testing and utilizing the dry-run tag before using this on any production systems.
