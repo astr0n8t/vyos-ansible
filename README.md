@@ -30,10 +30,6 @@ If you want the output even cleaner, just pipe using the following one liner:
 
 This will result with a print out of the exact set commands used to configure.
 
-## See Also
-
-If you need a VyOS image, see my other repository [here](https://github.com/astr0n8t/vyos-builds/) which is a VyOS 1.4 Sagitta build with Tailscale and Netbird clients included along with a qcow2 image with cloud-init support for Proxmox.
-
 ## Contributing
 
 I have defined in this role what I need for my use case. If you find that you need more, feel free to add to it (just a jinja2 template of VyOS commands that create the relevant config section).  Feel free to create a PR, I'd love to expand this!
