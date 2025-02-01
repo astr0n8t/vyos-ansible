@@ -131,9 +131,6 @@ set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif {{ i
 {% endif %}
 {% elif interface['type'] == 'wg' %}
 {% if interface['name'] is defined %}
-{% if interface['fqdn'] is defined %}
-set interfaces wireguard {{ interface['name'] }} host-name '{{ interface['fqdn'] }}'
-{% endif %}
 {% if interface['ipv4_addr'] is defined %}
 set interfaces wireguard {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
 {% endif %}
@@ -154,6 +151,9 @@ set interfaces wireguard {{ interface['name'] }} vrf '{{ interface['vrf'] }}'
 {% endif %}
 {% if interface['peers'] is defined %}
 {% for peer in interface['peers'] %}
+{% if peer['fqdn'] is defined %}
+set interfaces wireguard {{ interface['name'] }} peer {{ peer['name'] }} host-name '{{ peer['fqdn'] }}'
+{% endif %}
 {% if peer['ipv4_addr'] is defined %}
 set interfaces wireguard {{ interface['name'] }} peer {{ peer['name'] }} address '{{ peer['ipv4_addr'] }}'
 {% endif %}
