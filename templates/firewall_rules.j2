@@ -1,5 +1,6 @@
 delete firewall ipv4
 delete firewall ipv6
+delete firewall bridge
 {% if firewall_rules is defined %}
 {% for ruleset in firewall_rules %}
 {% if ruleset['ipv4'] is defined %}
@@ -79,8 +80,14 @@ set firewall ipv4 {{ name }} rule {{ loop.index }} destination group {{ rule['de
 {% if rule['inbound_interface'] is defined %}
 set firewall ipv4 {{ name }} rule {{ loop.index }} inbound-interface name '{{ rule['inbound_interface'] }}'
 {% endif %}
+{% if rule['inbound_interface_group'] is defined %}
+set firewall ipv4 {{ name }} rule {{ loop.index }} inbound-interface group '{{ rule['inbound_interface_group'] }}'
+{% endif %}
 {% if rule['outbound_interface'] is defined %}
 set firewall ipv4 {{ name }} rule {{ loop.index }} outbound-interface name '{{ rule['outbound_interface'] }}'
+{% endif %}
+{% if rule['outbound_interface_group'] is defined %}
+set firewall ipv4 {{ name }} rule {{ loop.index }} outbound-interface group '{{ rule['outbound_interface_group'] }}'
 {% endif %}
 {% if rule['protocol'] is defined %}
 set firewall ipv4 {{ name }} rule {{ loop.index }} protocol '{{ rule['protocol'] }}'
@@ -167,8 +174,105 @@ set firewall ipv6 {{ name }} rule {{ loop.index }} inbound-interface name '{{ ru
 {% if rule['outbound_interface'] is defined %}
 set firewall ipv6 {{ name }} rule {{ loop.index }} outbound-interface name '{{ rule['outbound_interface'] }}'
 {% endif %}
+{% if rule['inbound_interface_group'] is defined %}
+set firewall ipv6 {{ name }} rule {{ loop.index }} inbound-interface group '{{ rule['inbound_interface_group'] }}'
+{% endif %}
+{% if rule['outbound_interface_group'] is defined %}
+set firewall ipv6 {{ name }} rule {{ loop.index }} outbound-interface group '{{ rule['outbound_interface_group'] }}'
+{% endif %}
 {% if rule['protocol'] is defined %}
 set firewall ipv6 {{ name }} rule {{ loop.index }} protocol '{{ rule['protocol'] }}'
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if ruleset['bridge'] is defined %}
+{% if ruleset['name'] is defined %}
+{% if ruleset['intra_zone_assignments'] is defined %}
+{% for assignment in ruleset['intra_zone_assignments'] %}
+set firewall zone {{ assignment }} intra-zone-filtering firewall name '{{ ruleset['name'] }}'
+{% endfor %}
+{% endif %}
+{% if ruleset['assignments'] is defined %}
+{% for assignment in ruleset['assignments'] %}
+{% if assignment['from'] is defined %}
+{% if assignment['to'] is defined %}
+set firewall zone {{ assignment['to'] }} from {{ assignment['from'] }} firewall name '{{ ruleset['name'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if ruleset['name'] not in ['input', 'forward', 'output'] %}
+{% set name = 'name ' ~ ruleset['name'] %}
+{% else %}
+{% set name = ruleset['name'] ~ ' filter' %}
+{% endif %}
+{% endif %}
+{% for rule in ruleset['bridge'] %}
+{% if rule['action'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} action '{{ rule['action'] }}'
+{% endif %}
+{% if rule['offload_target'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} offload-target '{{ rule['offload_target'] }}'
+{% endif %}
+{% if rule['state'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} state '{{ rule['state'] }}'
+{% endif %}
+{% if rule['jump_target'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} jump-target '{{ rule['jump_target'] }}'
+{% endif %}
+{% if rule['description'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} description '{{ rule['description'] }}'
+{% endif %}
+{% if rule['logging'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} log
+{% endif %}
+{% if rule['source_address'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} source address '{{ rule['source_address'] }}'
+{% endif %}
+{% if rule['destination_address'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} destination address '{{ rule['destination_address'] }}'
+{% endif %}
+{% if rule['source_fqdn'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} source fqdn '{{ rule['source_fqdn'] }}'
+{% endif %}
+{% if rule['destination_fqdn'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} destination fqdn '{{ rule['destination_fqdn'] }}'
+{% endif %}
+{% if rule['source_geoip'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} source geoip country-code '{{ rule['source_geoip'] }}'
+{% endif %}
+{% if rule['destination_geoip'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} destination geoip country-code '{{ rule['destination_geoip'] }}'
+{% endif %}
+{% if rule['source_mac'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} source mac-address '{{ rule['source_mac'] }}'
+{% endif %}
+{% if rule['source_port'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} source port '{{ rule['source_port'] }}'
+{% endif %}
+{% if rule['destination_port'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} destination port '{{ rule['destination_port'] }}'
+{% endif %}
+{% if rule['source_group'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} source group {{ rule['source_group']['type'] }}-group '{{ rule['source_group']['name'] }}'
+{% endif %}
+{% if rule['destination_group'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} destination group {{ rule['destination_group']['type'] }}-group '{{ rule['destination_group']['name'] }}'
+{% endif %}
+{% if rule['inbound_interface'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} inbound-interface name '{{ rule['inbound_interface'] }}'
+{% endif %}
+{% if rule['inbound_interface_group'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} inbound-interface group '{{ rule['inbound_interface_group'] }}'
+{% endif %}
+{% if rule['outbound_interface'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} outbound-interface name '{{ rule['outbound_interface'] }}'
+{% endif %}
+{% if rule['outbound_interface_group'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} outbound-interface group '{{ rule['outbound_interface_group'] }}'
+{% endif %}
+{% if rule['protocol'] is defined %}
+set firewall bridge {{ name }} rule {{ loop.index }} protocol '{{ rule['protocol'] }}'
 {% endif %}
 {% endfor %}
 {% endif %}
