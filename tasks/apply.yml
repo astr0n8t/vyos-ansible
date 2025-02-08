@@ -2,9 +2,9 @@
 
 - name: Add configure command
   set_fact:
-    vyos_config: '{{ [ "configure" ] + vyos_config + [ { "command": "commit-confirm 5", 
+    vyos_config: '{{ [ "configure" ] + vyos_config + [ { "command": "commit-confirm 10", 
                     "prompt": [
-                      "commit-confirm will automatically reload previous config in 5 minutes",
+                      "commit-confirm will automatically reload previous config in 10 minutes",
                       "unless changes are confirmed.",
                       "Proceed ? [Y/n]"
                     ],
