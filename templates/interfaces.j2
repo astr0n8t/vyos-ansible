@@ -58,6 +58,11 @@ set interfaces loopback {{ interface['name'] }} description '{{ interface['desc'
 {% if interface['mac'] is defined %}
 set interfaces ethernet {{ interface['name'] }} hw-id '{{ interface['mac'] }}'
 {% endif %}
+{% if interface['offloads'] is defined %}
+{% for offload in interface['offloads'] %}
+set interfaces ethernet {{ interface['name'] }} offload '{{ offload }}'
+{% endfor %}
+{% endif %}
 {% if interface['ipv4_addr'] is defined %}
 set interfaces ethernet {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
 {% endif %}
