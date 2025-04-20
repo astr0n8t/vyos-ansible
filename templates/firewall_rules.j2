@@ -5,20 +5,6 @@ delete firewall bridge
 {% for ruleset in firewall_rules %}
 {% if ruleset['ipv4'] is defined %}
 {% if ruleset['name'] is defined %}
-{% if ruleset['intra_zone_assignments'] is defined %}
-{% for assignment in ruleset['intra_zone_assignments'] %}
-set firewall zone {{ assignment }} intra-zone-filtering firewall name '{{ ruleset['name'] }}'
-{% endfor %}
-{% endif %}
-{% if ruleset['assignments'] is defined %}
-{% for assignment in ruleset['assignments'] %}
-{% if assignment['from'] is defined %}
-{% if assignment['to'] is defined %}
-set firewall zone {{ assignment['to'] }} from {{ assignment['from'] }} firewall name '{{ ruleset['name'] }}'
-{% endif %}
-{% endif %}
-{% endfor %}
-{% endif %}
 {% if ruleset['name'] not in ['input', 'forward', 'output'] %}
 {% set name = 'name ' ~ ruleset['name'] %}
 {% else %}
@@ -96,20 +82,6 @@ set firewall ipv4 {{ name }} rule {{ loop.index }} protocol '{{ rule['protocol']
 {% endif %}
 {% if ruleset['ipv6'] is defined %}
 {% if ruleset['name'] is defined %}
-{% if ruleset['intra_zone_assignments'] is defined %}
-{% for assignment in ruleset['intra_zone_assignments'] %}
-set firewall zone {{ assignment }} intra-zone-filtering firewall ipv6-name '{{ ruleset['name'] }}-IPV6'
-{% endfor %}
-{% endif %}
-{% if ruleset['assignments'] is defined %}
-{% for assignment in ruleset['assignments'] %}
-{% if assignment['from'] is defined %}
-{% if assignment['to'] is defined %}
-set firewall zone {{ assignment['to'] }} from {{ assignment['from'] }} firewall ipv6-name '{{ ruleset['name'] }}-IPV6'
-{% endif %}
-{% endif %}
-{% endfor %}
-{% endif %}
 {% if ruleset['name'] not in ['input', 'forward', 'output'] %}
 {% set name = 'name ' ~ ruleset['name'] ~ '-IPV6' %}
 {% else %}
@@ -187,20 +159,6 @@ set firewall ipv6 {{ name }} rule {{ loop.index }} protocol '{{ rule['protocol']
 {% endif %}
 {% if ruleset['bridge'] is defined %}
 {% if ruleset['name'] is defined %}
-{% if ruleset['intra_zone_assignments'] is defined %}
-{% for assignment in ruleset['intra_zone_assignments'] %}
-set firewall zone {{ assignment }} intra-zone-filtering firewall name '{{ ruleset['name'] }}'
-{% endfor %}
-{% endif %}
-{% if ruleset['assignments'] is defined %}
-{% for assignment in ruleset['assignments'] %}
-{% if assignment['from'] is defined %}
-{% if assignment['to'] is defined %}
-set firewall zone {{ assignment['to'] }} from {{ assignment['from'] }} firewall name '{{ ruleset['name'] }}'
-{% endif %}
-{% endif %}
-{% endfor %}
-{% endif %}
 {% if ruleset['name'] not in ['input', 'forward', 'output'] %}
 {% set name = 'name ' ~ ruleset['name'] %}
 {% else %}
