@@ -16,6 +16,14 @@
   tags:
     - dry-run
     - never
+- name: Configure options 
+  ansible.builtin.include_tasks:
+    file: options.yml
+    apply:
+      tags:
+        - options 
+  tags:
+    - users
 - name: Configure users
   ansible.builtin.include_tasks:
     file: users.yml

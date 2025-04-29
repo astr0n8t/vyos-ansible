@@ -1,0 +1,6 @@
+delete system option
+{% if options is defined %}
+{% for option in options %}
+set system option {{ option }}
+{% endfor %}
+{% endif %}
