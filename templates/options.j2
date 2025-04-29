@@ -1,6 +1,10 @@
 delete system option
 {% if options is defined %}
 {% for option in options %}
-set system option {{ option }}
+{% if option['name'] is defined %}
+{% if option['setting'] is defined %}
+set system option {{ option['name'] }} '{{ option['setting'] }}'
+{% endif %}
+{% endif %}
 {% endfor %}
 {% endif %}
