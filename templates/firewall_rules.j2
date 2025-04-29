@@ -100,9 +100,9 @@ set firewall ipv6 {{ name }} rule {{ loop.index }} state '{{ rule['state'] }}'
 {% endif %}
 {% if rule['jump_target'] is defined %}
 {% if rule['jump_target'] not in ['input', 'forward', 'output'] %}
-{% set jump_target = ruleset['jump_target'] ~ '-IPV6' %}
+{% set jump_target = rule['jump_target'] ~ '-IPV6' %}
 {% else %}
-{% set jump_target = ruleset['jump_target'] %}
+{% set jump_target = rule['jump_target'] %}
 {% endif %}
 set firewall ipv6 {{ name }} rule {{ loop.index }} jump-target '{{ jump_target }}'
 {% endif %}
