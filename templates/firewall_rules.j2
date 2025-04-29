@@ -99,7 +99,12 @@ set firewall ipv6 {{ name }} rule {{ loop.index }} offload-target '{{ rule['offl
 set firewall ipv6 {{ name }} rule {{ loop.index }} state '{{ rule['state'] }}'
 {% endif %}
 {% if rule['jump_target'] is defined %}
-set firewall ipv6 {{ name }} rule {{ loop.index }} jump-target '{{ rule['jump_target'] }}'
+{% if rule['jump_target'] not in ['input', 'forward', 'output'] %}
+{% set jump_target = ruleset['jump_target'] ~ '-IPV6' %}
+{% else %}
+{% set jump_target = ruleset['jump_target'] %}
+{% endif %}
+set firewall ipv6 {{ name }} rule {{ loop.index }} jump-target '{{ jump_target }}'
 {% endif %}
 {% if rule['description'] is defined %}
 set firewall ipv6 {{ name }} rule {{ loop.index }} description '{{ rule['description'] }}'
