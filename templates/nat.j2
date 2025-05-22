@@ -32,6 +32,9 @@ set nat source rule {{ loop.index }} outbound-interface name '{{ rule['outbound_
 {% if rule['destination_address'] is defined %}
 set nat source rule {{ loop.index }} destination address '{{ rule['destination_address'] }}'
 {% endif %}
+{% if rule['destination_port'] is defined %}
+set nat source rule {{ loop.index }} destination port '{{ rule['destination_port'] }}'
+{% endif %}
 {% if rule['source_address'] is defined %}
 set nat source rule {{ loop.index }} source address '{{ rule['source_address'] }}'
 {% endif %}
