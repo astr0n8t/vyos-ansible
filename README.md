@@ -27,7 +27,7 @@ If you ever want to see how a config will look without actually applying it, sim
 If you want the output even cleaner, just pipe using the following one liner:
 
 ```
-| grep '"' | grep -v '"msg":' | awk -F'"' '{print $$2}'
+| grep '"' | grep -v '"msg":' | awk -F'"' '{print $2}'
 ```
 
 This will result with a print out of the exact set commands used to configure.

@@ -11,6 +11,9 @@ set container name {{ container['name'] }} command '{{ container['command'] }}'
 {% if container['uid'] is defined %}
 set container name {{ container['name'] }} uid '{{ container['uid'] }}'
 {% endif %}
+{% if container['privileged'] is defined %}
+set container name {{ container['name'] }} 'privileged'
+{% endif %}
 {% if container['gid'] is defined %}
 set container name {{ container['name'] }} gid '{{ container['gid'] }}'
 {% endif %}
@@ -27,6 +30,11 @@ set container name {{ container['name'] }} volume {{ volume['name'] }} source '{
 set container name {{ container['name'] }} volume {{ volume['name'] }} mode '{{ volume['mode'] }}'
 {% endif %}
 {% endif %}
+{% endfor %}
+{% endif %}
+{% if container['capabilities'] is defined %}
+{% for capability in container['capabilities'] %}
+set container name {{ container['name'] }} capability '{{ capability }}'
 {% endfor %}
 {% endif %}
 {% if container['devices'] is defined %}
