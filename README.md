@@ -4,6 +4,14 @@ An Ansible role to idempotently configure a VyOS Appliance
 
 The main branch follows the current rolling release, while each VyOS version should have a tag or branch if it is supported.  (The main may not always be up to date depending on if I have tested that version since a specific cli syntax change)
 
+## Setup
+
+Make sure to set your commit-confirm policy to rollback for the apply to work:
+```
+set system config-management commit-confirm action rollback
+```
+
+
 > [!CAUTION]
 > You can lock yourself out of your VyOS install with this role.  It will provision exactly what you define.  I recommend testing and utilizing the dry-run tag before using this on any production systems.
 
