@@ -1,22 +1,20 @@
 ---
-
 - name: Add configure command
   set_fact:
-    vyos_config: '{{ [ "configure" ] + vyos_config + [ { "command": "commit-confirm 10", 
-                    "prompt": [
-                      "commit-confirm will automatically reload previous config in 10 minutes",
-                      "unless changes are confirmed.",
-                      "Proceed ? [Y/n]"
-                    ],
-                    "answer": "y" }, 
-                    "exit" ] }}'
+    vyos_config:
+      '{{ [ "configure" ] + vyos_config + [ { "command": "commit-confirm 10",
+      "prompt": [
+      "Proceed \? \[Y/n\]"
+      ],
+      "answer": "y" },
+      "exit" ] }}'
 - name: Apply config
   vyos.vyos.vyos_command:
     commands: "{{ vyos_config }}"
     retries: 0
     match: any
   when:
-    -  vyos_config is defined
+    - vyos_config is defined
 
 - name: confirm commit
   vyos.vyos.vyos_command:
