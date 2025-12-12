@@ -64,7 +64,7 @@ set container name {{ container['name'] }} environment {{ variable['key'] }} val
 {% endif %}
 {% if container['capabilties'] is defined %}
 {% for capabilty in container['capabilties'] %}
-set container name {{ container['name'] }} capabilty '{{ capabilty }}'
+set container name {{ container['name'] }} capability '{{ capabilty }}'
 {% endfor %}
 {% endif %}
 {% endif %}
