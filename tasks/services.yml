@@ -3,10 +3,10 @@
   set_fact:
     vyos_config: "{{ vyos_config + lookup('ansible.builtin.template', item).split('\n')[:-1] }}"
   loop:
-    - 'dns.j2'
-    - 'ddns.j2'
-    - 'ntp.j2'
-    - 'ssh.j2'
-    - 'mdns.j2'
-    - 'cron.j2'
-
+    - "dns.j2"
+    - "ddns.j2"
+    - "ntp.j2"
+    - "ssh.j2"
+    - "mdns.j2"
+    - "cron.j2"
+    - "router_advert.j2"

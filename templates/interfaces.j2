@@ -7,7 +7,11 @@ delete interfaces
 set interfaces bonding {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
 {% endif %}
 {% if interface['ipv6_addr'] is defined %}
+{% if interface['ipv6_addr'] == 'dhcpv6' %}
 set interfaces bonding {{ interface['name'] }} address '{{ interface['ipv6_addr'] }}'
+{% else %}
+set interfaces bonding {{ interface['name'] }} ipv6 address '{{ interface['ipv6_addr'] }}'
+{% endif %}
 {% endif %}
 {% if interface['ipv4_addr_additional'] is defined %}
 {% for address in interface['ipv4_addr_additional'] %}
@@ -67,7 +71,29 @@ set interfaces ethernet {{ interface['name'] }} offload '{{ offload }}'
 set interfaces ethernet {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
 {% endif %}
 {% if interface['ipv6_addr'] is defined %}
+{% if interface['ipv6_addr'] == 'dhcpv6' %}
 set interfaces ethernet {{ interface['name'] }} address '{{ interface['ipv6_addr'] }}'
+{% for pd in interface['ipv6_pd'] %}
+{% if pd['id'] is defined %}
+set interfaces ethernet {{ interface['name'] }} dhcpv6-options pd '{{ pd['id'] }}'
+{% for pd_interface in  pd['interfaces'] %}
+{% if pd_interface['name'] is defined %}
+{% if pd_interface['address'] is defined %}
+set interfaces ethernet {{ interface['name'] }} dhcpv6-options pd {{ pd['id'] }} interface {{ pd_interface['name'] }} address '{{ pd_interface['address'] }}'
+{% endif %}
+{% if pd_interface['sla_id'] is defined %}
+set interfaces ethernet {{ interface['name'] }} dhcpv6-options pd {{ pd['id'] }} interface {{ pd_interface['name'] }} sla-id '{{ pd_interface['sla_id'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% if pd['length'] is defined %}
+set interfaces ethernet {{ interface['name'] }} dhcpv6-options pd {{ pd['id'] }} length '{{ pd['length'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% else %}
+set interfaces ethernet {{ interface['name'] }} ipv6 address '{{ interface['ipv6_addr'] }}'
+{% endif %}
 {% endif %}
 {% if interface['ipv4_addr_additional'] is defined %}
 {% for address in interface['ipv4_addr_additional'] %}
@@ -87,7 +113,11 @@ set interfaces ethernet {{ interface['name'] }} vrf '{{ interface['vrf'] }}'
 set interfaces virtual-ethernet {{ interface['name'] }} address '{{ interface['ipv4_addr'] }}'
 {% endif %}
 {% if interface['ipv6_addr'] is defined %}
+{% if interface['ipv6_addr'] == 'dhcpv6' %}
 set interfaces virtual-ethernet {{ interface['name'] }} address '{{ interface['ipv6_addr'] }}'
+{% else %}
+set interfaces virtual-ethernet {{ interface['name'] }} ipv6 address '{{ interface['ipv6_addr'] }}'
+{% endif %}
 {% endif %}
 {% if interface['ipv4_addr_additional'] is defined %}
 {% for address in interface['ipv4_addr_additional'] %}
@@ -118,7 +148,11 @@ set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif '{{ 
 set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif {{ interface['vif'] }} address '{{ interface['ipv4_addr'] }}'
 {% endif %}
 {% if interface['ipv6_addr'] is defined %}
+{% if interface['ipv6_addr'] == 'dhcpv6' %}
 set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif {{ interface['vif'] }} address '{{ interface['ipv6_addr'] }}'
+{% else %}
+set interfaces {{ interface['parent_type'] }} {{ interface['parent'] }} vif {{ interface['vif'] }} ipv6 address '{{ interface['ipv6_addr'] }}'
+{% endif %}
 {% endif %}
 {% if interface['ipv4_addr_additional'] is defined %}
 {% for address in interface['ipv4_addr_additional'] %}

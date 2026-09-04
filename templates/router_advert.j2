@@ -1,0 +1,14 @@
+delete service router-advert
+{% if router_advert is defined %}
+{% for interface in router_advert['interfaces'] %}
+{% if interface['name'] is defined %}
+set service router-advert interface '{{ interface['name'] }}'
+{% if interface['default_lifetime'] is defined %}
+set service router-advert interface '{{ interface['name'] }}' default-lifetime '{{ interface['default_lifetime'] }}'
+{% endif %}
+{% if interface['prefix'] is defined %}
+set service router-advert interface '{{ interface['name'] }}' prefix '{{ interface['prefix'] }}'
+{% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
