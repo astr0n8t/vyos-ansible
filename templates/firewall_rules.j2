@@ -128,7 +128,7 @@ set firewall ipv6 {{ name }} rule {{ loop.index }} destination fqdn '{{ rule['de
 set firewall ipv6 {{ name }} rule {{ loop.index }} source geoip country-code '{{ rule['source_geoip'] }}'
 {% endif %}
 {% if rule['destination_geoip'] is defined %}
-set firewall ipv6 {{ name }} rule {{ loop.index }} destination geopip country-code '{{ rule['destination_geoip'] }}'
+set firewall ipv6 {{ name }} rule {{ loop.index }} destination geoip country-code '{{ rule['destination_geoip'] }}'
 {% endif %}
 {% if rule['source_mac'] is defined %}
 set firewall ipv6 {{ name }} rule {{ loop.index }} source mac-address '{{ rule['source_mac'] }}'
